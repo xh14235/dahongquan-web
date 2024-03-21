@@ -1,24 +1,103 @@
 <template>
-  <div class="x-header">
-    <div class="logo">logo</div>
+  <!-- <div class="x-header">
+    <div class="logo" @click="toHome"><img :src="logoUrl" /></div>
     <div class="nav">
-      <div class="nav-item">首页</div>
-      <div class="nav-item">新闻</div>
-      <div class="nav-item">视频</div>
-      <div class="nav-item">历史</div>
-      <div class="nav-item">联系</div>
+      <div
+        class="nav-item"
+        v-for="item of list"
+        :key="item._id"
+        @click="toMenu(item)"
+      >
+        {{ item.title }}
+      </div>
     </div>
     <div class="right">right</div>
-  </div>
+  </div> -->
+
+  <el-menu
+    class="x-header"
+    :default-active="activeIndex"
+    mode="horizontal"
+    :ellipsis="false"
+    router
+  >
+    <div class="logo" @click="toHome"><img :src="logoUrl" /></div>
+    <div class="flex-grow" />
+    <el-menu-item :index="item.path" v-for="item of list" :key="item._id">
+      {{ item.title }}
+    </el-menu-item>
+  </el-menu>
 </template>
 
-<script setup></script>
+<script setup>
+import { reactive, ref, watch } from "vue";
+import { menuList } from "@/api/menu.js";
+import { useRouter, useRoute } from "vue-router";
+const router = useRouter();
+const route = useRoute();
+import { useStore } from "vuex";
+const store = useStore();
+
+const logoUrl = store.state.setting.setting.logoUrl;
+let list = reactive([]);
+
+const getMenuList = () => {
+  menuList()
+    .then((res) => {
+      list.push(...res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+getMenuList();
+
+const toMenu = (menu) => {
+  router.push({
+    path: menu.path,
+  });
+};
+
+const toHome = () => {
+  router.push({
+    path: "/",
+  });
+};
+
+const activeIndex = ref("/");
+watch(
+  () => route.path,
+  (val) => {
+    activeIndex.value = val;
+  },
+  { immediate: true }
+);
+</script>
 
 <style lang="less">
 .x-header {
-  display: flex;
+  position: fixed !important;
+  width: 100%;
+  // height: 60px;
+  // background: #333333;
+  // padding: 0 20px;
+  // display: flex;
+  // justify-content: space-between;
+  // align-items: center;
+  .logo {
+    padding: 6px 20px;
+    img {
+      height: 48px;
+      cursor: pointer;
+    }
+  }
   .nav {
     display: flex;
+    .nav-item {
+      color: #ffffff;
+      margin-left: 10px;
+      cursor: pointer;
+    }
   }
 }
 </style>
