@@ -1,5 +1,5 @@
 <template>
-  <x-intro :code="'contact'" />
+  <x-intro :code="'xieHistory'" />
 </template>
 
 <script setup>

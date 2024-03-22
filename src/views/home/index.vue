@@ -16,7 +16,6 @@ import { reactive } from "vue";
 const list = reactive([]);
 const getBannerList = () => {
   bannerList().then((res) => {
-    console.log(res);
     list.push(...res);
   });
 };

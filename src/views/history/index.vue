@@ -1,9 +1,7 @@
 <template>
-  <div>123</div>
+  <x-intro :code="'dahongquanIntro'" />
 </template>
 
-<script>
-export default {};
+<script setup>
+import XIntro from "@/components/xIntro.vue";
 </script>
-
-<style></style>

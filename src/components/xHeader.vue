@@ -13,50 +13,34 @@
     </div>
     <div class="right">right</div>
   </div> -->
-
-  <el-menu
-    class="x-header"
-    :default-active="activeIndex"
-    mode="horizontal"
-    :ellipsis="false"
-    router
-  >
-    <div class="logo" @click="toHome"><img :src="logoUrl" /></div>
-    <div class="flex-grow" />
-    <el-menu-item :index="item.path" v-for="item of list" :key="item._id">
-      {{ item.title }}
-    </el-menu-item>
-  </el-menu>
+  <div class="x-header">
+    <el-menu
+      :default-active="activeIndex"
+      mode="horizontal"
+      :ellipsis="false"
+      router
+    >
+      <div class="x-header-logo" @click="toHome">
+        <img :src="logoUrl" />
+      </div>
+      <div class="flex-grow" />
+      <el-menu-item :index="item.path" v-for="item of list" :key="item._id">
+        {{ item.title }}
+      </el-menu-item>
+    </el-menu>
+  </div>
 </template>
 
 <script setup>
-import { reactive, ref, watch } from "vue";
-import { menuList } from "@/api/menu.js";
+import { ref, reactive, watch, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 const router = useRouter();
 const route = useRoute();
 import { useStore } from "vuex";
 const store = useStore();
 
-const logoUrl = store.state.setting.setting.logoUrl;
-let list = reactive([]);
-
-const getMenuList = () => {
-  menuList()
-    .then((res) => {
-      list.push(...res);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-getMenuList();
-
-const toMenu = (menu) => {
-  router.push({
-    path: menu.path,
-  });
-};
+const logoUrl = ref("");
+const list = reactive([]);
 
 const toHome = () => {
   router.push({
@@ -72,32 +56,38 @@ watch(
   },
   { immediate: true }
 );
+onMounted(() => {
+  setTimeout(() => {
+    logoUrl.value = store.state.setting.setting.logoUrl;
+    list.push(...store.state.menu.menus);
+  }, 200);
+});
 </script>
 
 <style lang="less">
-.x-header {
-  position: fixed !important;
-  width: 100%;
-  // height: 60px;
-  // background: #333333;
-  // padding: 0 20px;
-  // display: flex;
-  // justify-content: space-between;
-  // align-items: center;
-  .logo {
-    padding: 6px 20px;
-    img {
-      height: 48px;
-      cursor: pointer;
-    }
-  }
-  .nav {
-    display: flex;
-    .nav-item {
-      color: #ffffff;
-      margin-left: 10px;
-      cursor: pointer;
-    }
-  }
-}
+// .x-header {
+//   position: fixed !important;
+//   width: 100%;
+//   // height: 60px;
+//   // background: #333333;
+//   // padding: 0 20px;
+//   // display: flex;
+//   // justify-content: space-between;
+//   // align-items: center;
+//   .logo {
+//     padding: 6px 20px;
+//     img {
+//       height: 48px;
+//       cursor: pointer;
+//     }
+//   }
+//   .nav {
+//     display: flex;
+//     .nav-item {
+//       color: #ffffff;
+//       margin-left: 10px;
+//       cursor: pointer;
+//     }
+//   }
+// }
 </style>

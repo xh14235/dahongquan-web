@@ -8,11 +8,18 @@
 
 <script setup>
 import { articalInfo } from "@/api/artical";
-import { ref } from "vue";
+import { ref, defineProps } from "vue";
+
+const props = defineProps({
+  code: {
+    type: String,
+    require: true,
+  },
+});
 
 const artical = ref({});
 const getInfo = () => {
-  articalInfo({ code: "contact" }).then((res) => {
+  articalInfo({ code: props.code }).then((res) => {
     artical.value = res;
   });
 };
