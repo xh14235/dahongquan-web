@@ -1,22 +1,7 @@
 <template>
-  <div class="x-artical" v-if="artical.code">
-    <div class="x-artical-title">{{ artical.title }}</div>
-    <div class="x-artical-content" v-html="artical.content"></div>
-  </div>
-  <el-empty v-else />
+  <x-artical-list :code="'video'" />
 </template>
 
 <script setup>
-import { articalInfo } from "@/api/artical";
-import { ref } from "vue";
-
-const artical = ref({});
-const getInfo = () => {
-  articalInfo({ code: "contact" }).then((res) => {
-    artical.value = res;
-  });
-};
-getInfo();
+import XArticalList from "@/components/xArticalList.vue";
 </script>
-
-<style></style>

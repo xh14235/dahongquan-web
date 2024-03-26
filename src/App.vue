@@ -1,14 +1,18 @@
 <template>
-  <div class="x-wrapper">
-    <x-header />
-    <div class="x-main">
-      <router-view />
+  <el-config-provider :locale="locale">
+    <div class="x-wrapper">
+      <x-header />
+      <div class="x-main">
+        <router-view />
+      </div>
+      <x-footer />
     </div>
-    <x-footer />
-  </div>
+  </el-config-provider>
 </template>
 
 <script setup>
+import zhCn from "element-plus/dist/locale/zh-cn.mjs";
+const locale = zhCn;
 import { reactive, ref, onMounted, watch, computed } from "vue";
 import XHeader from "@/components/xHeader";
 import XFooter from "@/components/xFooter";

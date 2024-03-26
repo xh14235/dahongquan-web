@@ -5,5 +5,10 @@ import store from "./store";
 import "@/assets/style/tailwind.css";
 import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
+import moment from "moment";
 
-createApp(App).use(store).use(router).use(ElementPlus).mount("#app");
+const app = createApp(App);
+
+app.config.globalProperties.$moment = moment;
+
+app.use(store).use(router).use(ElementPlus).mount("#app");

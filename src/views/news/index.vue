@@ -1,9 +1,7 @@
 <template>
-  <div>123</div>
+  <x-artical-list :code="'news'" />
 </template>
 
-<script>
-export default {};
+<script setup>
+import XArticalList from "@/components/xArticalList.vue";
 </script>
-
-<style></style>
