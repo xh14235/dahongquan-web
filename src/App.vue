@@ -25,7 +25,7 @@ const getBaseSetting = () => {
   baseSetting()
     .then((res) => {
       const bgUrl = res?.bgUrl || "/img/bg.jpg";
-      const logoUrl = res?.logoUrl || "/img/logo.jpg";
+      const logoUrl = res?.logoUrl || "/img/logo.png";
       store.commit({
         type: "setting/BASE_SETTING",
         setting: { bgUrl, logoUrl },
