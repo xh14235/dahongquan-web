@@ -4,7 +4,9 @@ import History from "@/views/history/index.vue";
 import Xie from "@/views/xie/index.vue";
 import News from "@/views/news/index.vue";
 import Video from "@/views/video/index.vue";
+import Picture from "@/views/picture/index.vue";
 import Contact from "@/views/contact/index.vue";
+import Boxer from "@/views/boxer/index.vue";
 import Details from "@/views/details/index.vue";
 
 const routes = [
@@ -55,6 +57,20 @@ const routes = [
     component: Details,
     meta: {
       title: "文章详情",
+    },
+  },
+  {
+    path: "/picture",
+    component: Picture,
+    meta: {
+      title: "老照片",
+    },
+  },
+  {
+    path: "/boxer",
+    component: Boxer,
+    meta: {
+      title: "代表拳师",
     },
   },
 ];

@@ -39,15 +39,35 @@ const getBaseSetting = () => {
 const getMenuList = () => {
   menuList()
     .then((res) => {
+      let list = res
+        .filter((item) => item.showInNav)
+        .sort((a, b) => {
+          if (getOrderNum(a.order, 0) === getOrderNum(b.order, 0)) {
+            return getOrderNum(a.order, 1) - getOrderNum(b.order, 1);
+          } else {
+            return getOrderNum(a.order, 0) - getOrderNum(b.order, 0);
+          }
+        });
       store.commit({
         type: "menu/SET_MENU",
-        menus: res,
+        menus: list,
       });
     })
     .catch((err) => {
       console.log(err);
     });
 };
+
+const getOrderNum = (str, num) => {
+  let order = 0;
+  if (str.includes("-")) {
+    order = str.split("-")[num];
+  } else {
+    order = Number(str);
+  }
+  return order;
+};
+
 onMounted(() => {
   getBaseSetting();
   getMenuList();
