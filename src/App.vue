@@ -26,9 +26,10 @@ const getBaseSetting = () => {
     .then((res) => {
       const bgUrl = res?.bgUrl || "/img/bg.jpg";
       const logoUrl = res?.logoUrl || "/img/logo.png";
+      const homeVideo = res?.homeVideo || "/video/homeVideo.mp4";
       store.commit({
         type: "setting/BASE_SETTING",
-        setting: { bgUrl, logoUrl },
+        setting: { bgUrl, logoUrl, homeVideo },
       });
     })
     .catch((err) => {

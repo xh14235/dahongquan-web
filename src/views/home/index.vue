@@ -3,12 +3,7 @@
     <banner />
 
     <div class="x-home-box x-home-video">
-      <video
-        src="http://localhost:3000/uploads/3e10ee36969154594ab6e9d5dea83d25"
-        autoplay
-        loop
-        controls
-      />
+      <video :src="homeVideo" autoplay loop controls />
     </div>
 
     <news />
@@ -17,9 +12,23 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from "vue";
 import Banner from "./components/banner.vue";
 import News from "./components/news.vue";
 import Inhiertor from "./components/inhiertor.vue";
+import { useStore } from "vuex";
+const store = useStore();
+
+const homeVideo = ref("");
+onMounted(() => {
+  setTimeout(() => {
+    console.log(store.state.setting);
+    console.log(store.state.setting.setting);
+    console.log(store.state.setting.setting.homeVideo);
+    homeVideo.value = store.state.setting.setting.homeVideo;
+    console.log(homeVideo.value);
+  }, 200);
+});
 </script>
 
 <style lang="less" scoped>
