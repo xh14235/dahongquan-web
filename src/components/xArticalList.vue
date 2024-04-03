@@ -7,11 +7,16 @@
         :key="item._id"
         @click="toArticalDetail(item)"
       >
-        <div class="x-artical-list-item-title">{{ item.title }}</div>
-        <div class="x-artical-list-item-time">
-          {{ $moment(item.time).format("YYYY:MM:DD HH:mm:ss") }}
+        <div class="x-artical-list-item-left">
+          <img :src="item.imgUrl" alt="" />
         </div>
-        <div class="x-artical-list-item-desc">{{ item.desc }}</div>
+        <div class="x-artical-list-item-right">
+          <div class="x-artical-list-item-title">{{ item.title }}</div>
+          <div class="x-artical-list-item-desc">{{ item.desc }}</div>
+          <div class="x-artical-list-item-time">
+            {{ $moment(item.time).format("YYYY:MM:DD HH:mm:ss") }}
+          </div>
+        </div>
       </div>
     </div>
     <el-pagination
